@@ -1,0 +1,76 @@
+---
+models:
+  user:
+    attributes:
+      email:
+        type: string
+        required: true
+      password:
+        type: string
+        required: true
+      last_login:
+        type: date
+        required: false
+      is_admin:
+        type: boolean
+        default: false
+    view:
+      admin:
+        fields:
+          - email
+          - password:
+              edit: false
+          - last_login
+          - is_admin:
+              component: slider
+  admin:
+    children:
+      audit_log:
+        implicit_id: false
+        attributes:
+          user_id:
+            type: integer
+            required: true
+            reference: user
+          action_id:
+            type: integer
+            required: true
+            reference: admin/action
+          when:
+            type: date
+            required: true
+        view:
+          admin:
+            global:
+              model:
+                only:
+                  - show
+            fields:
+              - user_id
+              - action
+              - when
+      action:
+        implicit_id: false
+        attributes:
+          id:
+            type: integer
+            required: false
+            options:
+              auto-increment: true
+          name:
+            type: string
+            required: true
+            options:
+              limit: 64
+          description:
+            type: string
+            required: false
+            options:
+              limit: 200
+        view:
+          admin:
+            global:
+              model:
+                except:
+                  - delete
+            fields: all

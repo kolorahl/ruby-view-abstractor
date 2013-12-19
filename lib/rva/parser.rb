@@ -7,9 +7,9 @@ module Rva
 
     # Reads a single data definitions file and returns the parsed information.
     #
-    # file: (String) A path to the data definitions file to parse.
+    # @param file [String] the path to a data definitions file.
     #
-    # returns: (Hash) A collection of parsed data definitions.
+    # @return [Hash] a collection of parsed data definitions.
     def self.parse(file)
       contents = File.open(file) { |f| f.read }
       data = YAML.load(contents)
@@ -26,10 +26,10 @@ module Rva
     # Performs validation on a given hash. Ensures that data definitions meets a
     # required format.
     #
-    # data: (Hash) Parsed data definitions.
+    # @param data [Hash] the parsed data definitions.
     #
-    # returns: (TrueClass|String) If `true` is returned, then the data is valid;
-    # otherwise, a string containing an error description is returned.
+    # @return [true,String] if `true` is returned, then the data is valid;
+    #   otherwise, a string containing an error description is returned.
     def self.validate(data)
       true
     end

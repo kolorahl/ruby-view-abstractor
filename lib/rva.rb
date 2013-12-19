@@ -7,10 +7,8 @@ module Rva
 
     # Construct a builder object from one or more definition files.
     #
-    # definitions: (String|Array) One or more path strings to definition files.
-    #
-    # returns: (Rva::Builder) Can be used with `Rva::Generator` implementations
-    # to generate output based on the data parsed from `definitions`.
+    # @param definitions [String,Array<String>] one or more strings representing
+    #   file paths to data definitions.
     def initialize(definitions)
       definitions = [definitions] unless definitions.is_a?(Array)
       @data = build_data({}, definitions)
@@ -19,14 +17,14 @@ module Rva
     # Runs the builder's parsed data definitions against a collection of view
     # generators.
     #
-    # generators: (Array[Rva::Generator]) A collection of view generators
-    # *classes*; they should not be actual instance objects, as this function
-    # will handle constructing each instance with the proper data.
-    # options: (Hash) A collection of options to pass to each generator. This
-    # should conform to the specification for `Rva::Generator#initialize`.
+    # @param generators [Array<Rva::Generator>] a collection of view generators
+    #   *classes*; they should not be actual instance objects, as this function
+    #   will handle constructing each instance with the proper data.
+    # @param options [Hash] a collection of options to pass to each generator.
+    #   See {Rva::Generator#initialize Rva::Generator#initialize} for details.
     #
-    # returns: (nil) The generators are all meant to work via side-effects,
-    # therefore there is nothing to be returned.
+    # @return [nil] the generators are all meant to work via side-effects,
+    #   therefore there is nothing to be returned.
     def run(generators, options={})
       throw "Must pass an array to `Rva::Builder#run`" unless generators.is_a?(Array)
       generators.each do |gclass|
@@ -43,11 +41,11 @@ module Rva
 
     # Creates a single hash of data from a collection of data definition files.
     #
-    # hash: (Hash) The current state of the data hash.
-    # defs: (Array) The remaining definition files to merge with `hash`.
+    # @param hash [Hash] the current state of the data hash.
+    # @param defs [Array<String>] the remaining definition files to process.
     #
-    # returns: (Hash) The merge of `hash` and all data definitions provided by
-    # `defs`.
+    # @return [Hash] the merge of `hash` and all data definitions provided by
+    #   `defs`.
     def build_data(hash, defs)
       current = defs.shift
       data = if current.is_a?(Array)

@@ -1,5 +1,6 @@
 require 'rva/parser'
 require 'rva/generator'
+require 'rva/erb_generator'
 
 module Rva
   class Builder

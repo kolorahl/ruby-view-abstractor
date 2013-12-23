@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.email       = "kolorahl@gmail.com"
   spec.files       = Dir.glob("#{Dir.pwd}/**/*")
   spec.homepage    = "http://kolorahl.com/rva"
-  spec.license     = "Not Sure Yet"
+  spec.license     = "MIT"
 
   spec.add_runtime_dependency 'active_support', '>= 3.0.0'
 

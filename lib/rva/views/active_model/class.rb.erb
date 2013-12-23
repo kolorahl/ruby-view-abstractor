@@ -1,0 +1,5 @@
+class <%= (ns + [model['name']]).join('/').camelize %>
+<%= includes.map {|i| "  ActiveModel::#{i}"}.join("\n") %>
+
+  attr_accessor <%= model['data']['attributes'].map { |a, d| ":#{a}" }.join(", ") %>
+end

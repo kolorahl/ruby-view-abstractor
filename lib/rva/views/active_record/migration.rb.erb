@@ -1,0 +1,8 @@
+class Create<%= full_ns.camelize %> < ActiveRecord::Migration
+  def change
+    create_table :<%= full_ns %> do |t|<% model['data']['attributes'].each do |name, data| %>
+      t.<%= data['type'] %> :<%= name %><% if col_opts.has_key?(name) %><%= col_opts[name] %><% end %><% end %>
+      t.timestamps
+    end
+  end
+end
